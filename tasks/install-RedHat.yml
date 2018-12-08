@@ -1,0 +1,11 @@
+- name: RHEL | Install Caddy packages
+  yum:
+    name: "{{ caddy_packages }}"
+    state: present
+
+- name: RHEL | Start and enable Caddy
+  systemd:
+    name: "{{ caddy_service_name }}"
+    state: started
+    enabled: true
+  when: "ansible_service_mgr is 'systemd'"

@@ -1,0 +1,6 @@
+caddy_user: caddy
+caddy_group: caddy
+caddy_service_name: caddy
+caddy_log_path: /var/log/caddy
+caddy_config_path: /etc/caddy
+caddy_config_file: caddy.conf
