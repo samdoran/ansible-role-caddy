@@ -23,3 +23,23 @@
     mode: 0750
   tags:
     - caddy
+
+- name: Coppy main Caddy config
+  template:
+    src: caddy.conf.j2
+    dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - caddy
+    - caddy_config
+
+- name: Start and enable Caddy
+  service:
+    name: "{{ caddy_service_name }}"
+    state: started
+    enabled: true
+  tags:
+    - caddy
+    - caddy_service

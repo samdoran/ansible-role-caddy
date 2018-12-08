@@ -1,0 +1,9 @@
+- name: restart caddy
+  service:
+    name: "{{ caddy_service_name }}"
+    state: restarted
+
+- name: reload caddy
+  service:
+    name: "{{ caddy_service_name }}"
+    state: reloaded

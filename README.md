@@ -1,27 +1,33 @@
-caddy
+Caddy
 =========
 [![Galaxy](https://img.shields.io/badge/galaxy-samdoran.caddy-blue.svg?style=flat)](https://galaxy.ansible.com/samdoran/caddy)
 [![Build Status](https://travis-ci.org/samdoran/ansible-role-caddy.svg?branch=master)](https://travis-ci.org/samdoran/ansible-role-caddy)
 
-A brief description of the role goes here.
+Install [Caddy](https://caddyserver.com) with a basic config set to include `conf.d/*.conf`. Roles that wish to use Caddy should place their config file in that directory with a `.conf` extension.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None.
 
 Role Variables
 --------------
 
 | Name              | Default Value       | Description          |
 |-------------------|---------------------|----------------------|
-| `` | `` |  |
+| `caddy_user` | `caddy` | Caddy user. |
+| `caddy_group` | `caddy` | Caddy group. |
+| `caddy_service_name` | `caddy` | Name of the service for starting/stopping/enabling. |
+| `caddy_log_path` | `/var/log/caddy` | Path to Caddy logs. |
+| `caddy_config_path` | `/etc/caddy` | Path to Caddy config. |
+| `caddy_config_file` | `caddy.conf` | Name of the Caddy config file. |
+| `caddy_root` | `/usr/share/caddy` | Path to the default root served by Caddy. |
 
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
