@@ -1,7 +1,15 @@
 caddy_user: caddy
 caddy_group: caddy
 caddy_service_name: caddy
+caddy_default_part: 80
 caddy_log_path: /var/log/caddy
 caddy_config_path: /etc/caddy
 caddy_config_file: caddy.conf
 caddy_root: /usr/share/caddy
+caddy_packages: []
+caddy_force_update: true
+caddy_license_type: personal
+caddy_install_options:
+  - http.cache
+  - http.cgi
+  - http.forwardproxy

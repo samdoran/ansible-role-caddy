@@ -1,0 +1,7 @@
+caddy_url_values:
+  platform:
+    linux: linux
+    macosx: darwin
+  architecture:
+    x86_64: 'amd64'
+    i386: '386'

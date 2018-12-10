@@ -1,6 +1,5 @@
 - name: Include distribution specific variables
   include_vars: "{{ item }}"
-  when: ansible_distribution != 'Ubuntu'
   with_first_found:
     - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
     - "{{ ansible_distribution }}.yml"
@@ -34,6 +33,8 @@
   tags:
     - caddy
     - caddy_config
+
+- meta: flush_handlers
 
 - name: Start and enable Caddy
   service:
