@@ -4,11 +4,11 @@
     state: present
     update_cache: yes
     cache_valid_time: 600
+  tags:
+    - caddy
 
 - name: DEBIAN | Download Caddy archive
   get_url:
-    # url: https://caddyserver.com/download/linux/amd64?plugins=http.cgi,http.cors,http.proxyprotocol&license=personal&telemetry=off
-    # url: https://caddyserver.com/download/linux/amd64?plugins=http.cache,http.cgi,http.core,http.forwardproxy&license=personal&telemetry=off
     url: https://caddyserver.com/download/{{ platform }}/{{ architecture }}?plugins={{ plugins }}&license={{ caddy_license_type }}&telemetry=off
     dest: /var/tmp
     timeout: 180
@@ -17,23 +17,31 @@
     platform: "{{ ansible_facts['system'] | lower }}"
     architecture: "{{ caddy_url_values['architecture'][ansible_facts['architecture']] }}"
     plugins: "{% for option in caddy_install_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}"
+  tags:
+    - caddy
 
 - name: DEBIAN | Create Caddy archive extraction path
   file:
     path: /var/tmp/caddy
     state: directory
+  tags:
+    - caddy
 
 - name: DEBIAN | Extract Caddy archive
   unarchive:
     dest: /var/tmp/caddy
     src: "{{ caddy_archive.dest }}"
     remote_src: true
+  tags:
+    - caddy
 
 - name: DEBIAN | Remove Caddy binary
   file:
-    path: /usr/loca/bin/caddy
+    path: /usr/local/bin/caddy
     state: absent
   when: caddy_force_update
+tags:
+  - caddy
 
 - name: DEBIAN | Copy Caddy binary into place
   script: copy-caddy-bin.sh
@@ -42,22 +50,30 @@
   notify:
     - restart caddy
     - systemd daemon reload
+  tags:
+    - caddy
 
 - name: DEBIAN | Set capabilities
   capabilities:
     path: /usr/local/bin/caddy
     capability: cap_net_bind_service=+ep
     state: present
+  tags:
+    - caddy
 
 - name: DEBIAN | Create Caddy group
   group:
     name: caddy
     system: yes
+  tags:
+    - caddy
 
 - name: DEBIAN | Create Caddy user
   user:
     name: caddy
     system: yes
+  tags:
+    - caddy
 
 - name: DEBIAN | Create Caddy directories
   file:
@@ -74,6 +90,8 @@
     - "{{ caddy_log_path }}"
     - "{{ caddy_config_path }}"
     - "{{ caddy_root }}"
+  tags:
+    - caddy
 
 - name: DEBIAN | Copy SystemD unit file
   template:
@@ -83,6 +101,8 @@
   notify:
     - systemd daemon reload
     - restart caddy
+  tags:
+    - caddy
 
 - name: DEBIAN | Copy default index.html
   copy:
@@ -90,4 +110,6 @@
     dest: "{{ caddy_root }}"
     owner: "{{ caddy_user }}"
     group: "{{ caddy_group }}"
+  tags:
+    - caddy
 

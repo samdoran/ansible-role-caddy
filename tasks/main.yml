@@ -23,7 +23,7 @@
   tags:
     - caddy
 
-- name: Coppy main Caddy config
+- name: Copy main Caddy config
   template:
     src: caddy.conf.j2
     dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"

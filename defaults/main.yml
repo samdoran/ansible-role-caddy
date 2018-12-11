@@ -8,8 +8,15 @@ caddy_config_file: caddy.conf
 caddy_root: /usr/share/caddy
 caddy_packages: []
 caddy_force_update: true
+caddy_download_custom: false
 caddy_license_type: personal
 caddy_install_options:
   - http.cache
   - http.cgi
   - http.forwardproxy
+  - http.geoip
+  - http.realip
+  - tls.dns.cloudflare
+  - tls.dns.digitalocean
+  - tls.dns.namecheap
+  - tls.dns.route53

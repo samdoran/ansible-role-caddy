@@ -1,1 +1,3 @@
+caddy_packages:
+  - caddy
 caddy_ssl_path: /etc/pki/tls/caddy
