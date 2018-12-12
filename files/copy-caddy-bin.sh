@@ -11,4 +11,3 @@ if caddy_path="$(type -p "$caddy_bin")"; then
 fi
 
 mv "$PREFIX/$caddy_bin" "$install_path/$caddy_bin"
-

@@ -2,42 +2,11 @@
   yum:
     name: "{{ caddy_packages }}"
     state: present
+  when: not caddy_download_custom_build
   tags:
     - caddy
-  when: not caddy_download_custom_build
 
-- block:
-    - name: RHEL | Download custom Caddy build
-      get_url:
-        url: https://caddyserver.com/download/{{ platform }}/{{ architecture }}?plugins={{ plugins }}&license={{ caddy_license_type }}&telemetry=off
-        dest: /var/tmp
-        timeout: 180
-      register: caddy_archive
-      vars:
-        platform: "{{ ansible_facts['system'] | lower }}"
-        architecture: "{{ caddy_url_values['architecture'][ansible_facts['architecture']] }}"
-        plugins: "{% for option in caddy_install_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}"
-      tags:
-        - caddy
-
-    - name: RHEL | Create Caddy archive extraction path
-      file:
-        path: /var/tmp/caddy
-        state: directory
-      tags:
-        - caddy
-
-    - name: RHEL | Extract Caddy archive
-      unarchive:
-        dest: /var/tmp/caddy
-        src: "{{ caddy_archive.dest }}"
-        remote_src: true
-      tags:
-        - caddy
-
-    - name: RHEL | Copy Caddy binary into place
-      command: cp -f /var/tmp/caddy/caddy /bin/caddy
-      when: caddy_archive is changed
-      tags:
-        - caddy
+- include_tasks: custom-build.yml
   when: caddy_download_custom_build
+  tags:
+    - caddy
