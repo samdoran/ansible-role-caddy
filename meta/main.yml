@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: caddy
   author: Sam Doran
   description:
   company: Ansible by Red Hat
