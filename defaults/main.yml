@@ -8,7 +8,7 @@ caddy_config_file: caddy.conf
 caddy_root: /usr/share/caddy
 caddy_packages: []
 caddy_force_update: false
-caddy_download_custom: false
+caddy_download_custom_build: false
 caddy_license_type: personal
 caddy_install_options:
   - http.cache

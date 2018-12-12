@@ -47,14 +47,14 @@
 - name: CUSTOM | Create Caddy group
   group:
     name: caddy
-    system: yes
+    system: true
   tags:
     - caddy
 
 - name: CUSTOM | Create Caddy user
   user:
     name: caddy
-    system: yes
+    system: true
   tags:
     - caddy
 
