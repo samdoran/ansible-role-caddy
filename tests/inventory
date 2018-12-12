@@ -1,5 +1,0 @@
-caddy-centos6 ansible_host=10.77.19.100
-caddy-centos7 ansible_host=10.77.19.101
-caddy-ub12 ansible_host=10.77.19.102
-caddy-ub14 ansible_host=10.77.19.103
-caddy-ub16 ansible_host=10.77.19.104

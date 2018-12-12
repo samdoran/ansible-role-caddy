@@ -10,4 +10,4 @@ if caddy_path="$(type -p "$caddy_bin")"; then
     mv "$caddy_path" "$caddy_backup"
 fi
 
-mv "$PREFIX/$caddy_bin" "$install_path/$caddy_bin"
+cp -a "$PREFIX/$caddy_bin" "$install_path/$caddy_bin"

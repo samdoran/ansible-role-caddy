@@ -18,19 +18,23 @@
   tags:
     - caddy
 
+- name: CUSTOM | Remove Caddy files in order to update
+  file:
+    path: "{{ item }}"
+    state: absent
+  when: caddy_force_update
+  loop:
+    - /usr/local/bin/caddy
+    - /var/tmp/caddy/caddy
+  tags:
+    - caddy
+
 - name: CUSTOM | Extract Caddy archive
   unarchive:
     dest: /var/tmp/caddy
     src: "{{ caddy_archive.dest }}"
+    creates: /var/tmp/caddy/caddy
     remote_src: true
-  tags:
-    - caddy
-
-- name: CUSTOM | Remove Caddy binary
-  file:
-    path: /usr/local/bin/caddy
-    state: absent
-  when: caddy_force_update
   tags:
     - caddy
 
@@ -66,12 +70,9 @@
     mode: "{{ item.mode | default(omit) }}"
     state: directory
   loop:
-    - /etc/caddy
+    - "{{ caddy_config_path }}/conf.d"
     - "{{ caddy_ssl_path }}"
-    - /etc/caddy
-    - /etc/caddy/conf.d
     - "{{ caddy_log_path }}"
-    - "{{ caddy_config_path }}"
     - "{{ caddy_root }}"
   tags:
     - caddy
