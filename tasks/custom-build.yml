@@ -10,9 +10,9 @@
     - caddy
 
 - name: CUSTOM | See if Caddy binary exists
-  state:
+  stat:
     path: /usr/local/bin/caddy
-  regiest: caddy_bin
+  register: caddy_bin
   tags:
     - caddy
 
@@ -40,9 +40,10 @@
 - name: CUSTOM | Extract Caddy archive
   unarchive:
     dest: /var/tmp/caddy
-    src: "{{ caddy_archive.dest }}"
+    src: "{{ caddy_archive.dest | default('') }}"
     creates: /var/tmp/caddy/caddy
     remote_src: true
+  when: caddy_archive is defined
   tags:
     - caddy
 
