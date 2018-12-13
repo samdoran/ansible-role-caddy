@@ -1,9 +1,28 @@
+- name: CUSTOM | Remove Caddy files in order to update
+  file:
+    path: "{{ item }}"
+    state: absent
+  when: caddy_force_update
+  loop:
+    - /usr/local/bin/caddy
+    - /var/tmp/caddy/caddy
+  tags:
+    - caddy
+
+- name: CUSTOM | See if Caddy binary exists
+  state:
+    path: /usr/local/bin/caddy
+  regiest: caddy_bin
+  tags:
+    - caddy
+
 - name: CUSTOM | Download Caddy archive
   get_url:
     url: https://caddyserver.com/download/{{ platform }}/{{ architecture }}?plugins={{ plugins }}&license={{ caddy_license_type }}&telemetry=off
     dest: /var/tmp
     timeout: 180
   register: caddy_archive
+  when: not caddy_bin.stat.exists
   vars:
     platform: "{{ ansible_facts['system'] | lower }}"
     architecture: "{{ caddy_url_values['architecture'][ansible_facts['architecture']] }}"
@@ -15,17 +34,6 @@
   file:
     path: /var/tmp/caddy
     state: directory
-  tags:
-    - caddy
-
-- name: CUSTOM | Remove Caddy files in order to update
-  file:
-    path: "{{ item }}"
-    state: absent
-  when: caddy_force_update
-  loop:
-    - /usr/local/bin/caddy
-    - /var/tmp/caddy/caddy
   tags:
     - caddy
 
