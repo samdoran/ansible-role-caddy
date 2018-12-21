@@ -1,12 +1,3 @@
-- name: RHEL | Install Caddy packages
-  yum:
-    name: "{{ caddy_packages }}"
-    state: present
-  when: not caddy_download_custom_build
-  tags:
-    - caddy
-
 - include_tasks: custom-build.yml
-  when: caddy_download_custom_build
   tags:
     - caddy

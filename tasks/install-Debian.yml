@@ -1,18 +1,11 @@
-- name: DEBIAN | Install Caddy packages
-  apt:
-    name: "{{ caddy_packages }}"
-    state: present
-    update_cache: true
-    cache_valid_time: 600
+- include_tasks: custom-build.yml
   tags:
     - caddy
 
 - name: DEBIAN | Set capabilities
   capabilities:
     path: /usr/local/bin/caddy
-    capability: cap_net_bind_service=+ep
+    capability: cap_net_bind_service+ep
     state: present
   tags:
     - caddy
-
-- include_tasks: custom-build.yml

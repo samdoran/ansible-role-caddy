@@ -5,3 +5,15 @@ caddy_url_values:
   architecture:
     x86_64: 'amd64'
     i386: '386'
+    armv7l: arm7
+
+caddy_service_files:
+  systemd:
+    src: caddy.service.systemd.j2
+    dest: /lib/systemd/system/caddy.service
+  upstart:
+    src: caddy.conf.upstart.j2
+    dest: /etc/init/caddy.conf
+  init:
+    src: caddy.sysvinit.j2
+    dest: /etc/init.d/caddy

@@ -20,13 +20,13 @@
   get_url:
     url: https://caddyserver.com/download/{{ platform }}/{{ architecture }}?plugins={{ plugins }}&license={{ caddy_license_type }}&telemetry=off
     dest: /var/tmp
-    timeout: 180
+    timeout: 480
   register: caddy_archive
   when: not caddy_bin.stat.exists
   vars:
     platform: "{{ ansible_facts['system'] | lower }}"
     architecture: "{{ caddy_url_values['architecture'][ansible_facts['architecture']] }}"
-    plugins: "{% for option in caddy_install_options %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}"
+    plugins: "{% for option in caddy_plugins %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}"
   tags:
     - caddy
 
@@ -43,7 +43,7 @@
     src: "{{ caddy_archive.dest | default('') }}"
     creates: /var/tmp/caddy/caddy
     remote_src: true
-  when: caddy_archive is defined
+  when: caddy_archive | default({}) is changed
   tags:
     - caddy
 
@@ -86,25 +86,25 @@
   tags:
     - caddy
 
-- block:
-    - name: CUSTOM | Copy SystemD unit file
-      template:
-        src: caddy.service.j2
-        dest: /lib/systemd/system/caddy.service
-      register: systemd_unit_file
-      notify:
-        - systemd daemon reload
-        - restart caddy
-      tags:
-        - caddy
+- name: CUSTOM | Copy service file
+  template:
+    src: "{{ caddy_service_files[ansible_facts.service_mgr]['src'] }}"
+    dest: "{{ caddy_service_files[ansible_facts.service_mgr]['dest'] }}"
+  register: service_file_task
+  notify:
+    - systemd daemon reload
+    - restart caddy
+  tags:
+    - caddy
 
-    - name: CUSTOM | SystemD daemon reload
-      systemd:
-        daemon_reload: true
-      when: systemd_unit_file is changed
-      tags:
-        - caddy
-  when: "ansible_facts['service_mgr'] == 'systemd'"
+- name: CUSTOM | SystemD daemon reload
+  systemd:
+    daemon_reload: true
+  when:
+    - service_file_task is changed
+    - ansible_facts.service_mgr == 'systemd'
+  tags:
+    - caddy
 
 - name: CUSTOM | Copy default index.html
   copy:

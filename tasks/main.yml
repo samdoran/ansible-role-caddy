@@ -1,15 +1,15 @@
 - name: Include distribution specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-    - "{{ ansible_distribution }}.yml"
-    - "{{ ansible_os_family }}.yml"
+    - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_version }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.os_family }}.yml"
     - main.yml
   tags:
     - always
     - caddy
 
-- include: "install-{{ ansible_os_family }}.yml"
+- include: "install-{{ ansible_facts.os_family }}.yml"
   tags:
     - caddy
 
@@ -34,13 +34,12 @@
     - caddy
     - caddy_config
 
-- meta: flush_handlers
-
 - name: Start and enable Caddy
   service:
     name: "{{ caddy_service_name }}"
     state: started
     enabled: true
+  register: service_start
   tags:
     - caddy
     - caddy_service
