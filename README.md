@@ -25,7 +25,7 @@ Role Variables
 | `caddy_root` | `/usr/share/caddy` | Path to the default root served by Caddy. |
 | `caddy_force_update` | `false` | Whether or not to replace an existing `caddy` binary with a newly downloaded one. By default, if a a `caddy` binary exists, it will not be replaced. |
 | `caddy_license_type` | `personal` | Caddy license type. More information [here](https://caddyserver.com/products/licenses) |
-| `caddy_install_options` | `[see defauts/main.yml]` | List of Caddy options to add when building a custom Caddy binary. |
+| `caddy_plugins` | `[see defauts/main.yml]` | List of Caddy options to add when building a custom Caddy binary. |
 
 
 Dependencies
