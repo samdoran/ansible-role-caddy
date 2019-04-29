@@ -23,9 +23,10 @@ Role Variables
 | `caddy_config_path` | `/etc/caddy` | Path to Caddy config. |
 | `caddy_config_file` | `caddy.conf` | Name of the Caddy config file. |
 | `caddy_root` | `/usr/share/caddy` | Path to the default root served by Caddy. |
-| `caddy_force_update` | `false` | Whether or not to replace an existing `caddy` binary with a newly downloaded one. By default, if a a `caddy` binary exists, it will not be replaced. |
+| `caddy_force_update` | `no` | Whether or not to replace an existing `caddy` binary with a newly downloaded one. By default, if a a `caddy` binary exists, it will not be replaced. |
 | `caddy_license_type` | `personal` | Caddy license type. More information [here](https://caddyserver.com/products/licenses) |
-| `caddy_plugins` | `[see defauts/main.yml]` | List of Caddy options to add when building a custom Caddy binary. |
+| `caddy_download_custom_build` | `no` | Whether to download a custom build or a static build. If `no`, `caddy_version` is used in the URL. If `yes`, the URL is created based on the list of `caddy_plugins` and system architecture. |
+| `caddy_plugins` | `[see defaults/main.yml]` | List of Caddy options to add when building a custom Caddy binary. |
 
 
 Dependencies

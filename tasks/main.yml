@@ -1,45 +1,17 @@
 - name: Include distribution specific variables
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_version }}.yml"
-    - "{{ ansible_facts.distribution }}.yml"
-    - "{{ ansible_facts.os_family }}.yml"
-    - main.yml
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version }}.yml"
+        - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_version }}.yml"
+        - "{{ ansible_facts.os_family }}.yml"
+        - "{{ ansible_facts.distribution }}.yml"
+        - default.yml
+      paths:
+        - vars
   tags:
     - always
     - caddy
 
-- include: "install-{{ ansible_facts.os_family }}.yml"
-  tags:
-    - caddy
-
-- name: Create log dir
-  file:
-    path: "{{ caddy_log_path }}"
-    state: directory
-    owner: "{{ caddy_user }}"
-    group: "{{ caddy_group }}"
-    mode: 0750
-  tags:
-    - caddy
-
-- name: Copy main Caddy config
-  template:
-    src: caddy.conf.j2
-    dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"
-    owner: root
-    group: root
-    mode: 0644
-  tags:
-    - caddy
-    - caddy_config
-
-- name: Start and enable Caddy
-  service:
-    name: "{{ caddy_service_name }}"
-    state: started
-    enabled: true
-  register: service_start
-  tags:
-    - caddy
-    - caddy_service
+- import_tasks: install.yml

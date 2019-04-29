@@ -17,3 +17,7 @@ caddy_service_files:
   init:
     src: caddy.sysvinit.j2
     dest: /etc/init.d/caddy
+
+_platform: "{{ ansible_facts['system'] | lower }}"
+_architecture: "{{ caddy_url_values['architecture'][ansible_facts['architecture']] }}"
+_plugins: "{% for option in caddy_plugins %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}"
