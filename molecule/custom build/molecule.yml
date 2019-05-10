@@ -28,7 +28,7 @@ provisioner:
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
-  name: default
+  name: custom build
 verifier:
   name: testinfra
   lint:

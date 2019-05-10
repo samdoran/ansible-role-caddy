@@ -29,7 +29,6 @@
         url: https://caddyserver.com/download/{{ _platform }}/{{ _architecture }}?plugins={{ _plugins }}&license={{ caddy_license_type }}&telemetry=off
         dest: /var/tmp
         timeout: 480
-      register: caddy_archive
       when: caddy_download_custom_build
   rescue:
     - name: Download baked Caddy archive
@@ -37,27 +36,33 @@
         url: https://github.com/mholt/caddy/releases/download/v{{ caddy_version }}/caddy_v{{ caddy_version }}_{{ _platform }}_{{ _architecture }}.tar.gz
         dest: /var/tmp
         timeout: 480
-      register: caddy_archive
   always:
     - name: Download baked Caddy archive
       get_url:
         url: https://github.com/mholt/caddy/releases/download/v{{ caddy_version }}/caddy_v{{ caddy_version }}_{{ _platform }}_{{ _architecture }}.tar.gz
         dest: /var/tmp
         timeout: 480
-      register: caddy_archive
       when: not caddy_download_custom_build
   when: not caddy_bin.stat.exists
+  tags:
+    - caddy
+
+- name: Find the downloaded Caddy archive file
+  find:
+    paths: /var/tmp/
+    patterns: 'caddy*tar.gz'
+  register: caddy_archive
   tags:
     - caddy
 
 - name: Extract Caddy archive
   unarchive:
     dest: /var/tmp/caddy
-    src: "{{ caddy_archive.dest | default('') }}"
+    src: "{{ caddy_archive.files | map(attribute='path') | list | first }}"
     creates: /var/tmp/caddy/caddy
-    remote_src: true
+    remote_src: yes
   when:
-    caddy_archive | default({}) is changed or
+    caddy_archive.matched > 0 or
     caddy_force_update
   tags:
     - caddy
@@ -75,14 +80,14 @@
 - name: Create Caddy group
   group:
     name: caddy
-    system: true
+    system: yes
   tags:
     - caddy
 
 - name: Create Caddy user
   user:
     name: caddy
-    system: true
+    system: yes
   tags:
     - caddy
 
@@ -114,7 +119,7 @@
 
 - name: SystemD daemon reload
   systemd:
-    daemon_reload: true
+    daemon_reload: yes
   when:
     - service_file_task is changed
     - ansible_facts.service_mgr == 'systemd'
@@ -145,7 +150,7 @@
     state: directory
     owner: "{{ caddy_user }}"
     group: "{{ caddy_group }}"
-    mode: 0750
+    mode: '0750'
   tags:
     - caddy
 
@@ -155,7 +160,7 @@
     dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   tags:
     - caddy
     - caddy_config
@@ -164,7 +169,7 @@
   service:
     name: "{{ caddy_service_name }}"
     state: started
-    enabled: true
+    enabled: yes
   register: service_start
   tags:
     - caddy

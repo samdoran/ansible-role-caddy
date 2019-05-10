@@ -1,7 +1,6 @@
-- hosts: all
+- name: Download and install Caddy
+  hosts: all
   become: yes
-  vars:
-    caddy_build_type: static
 
   tasks:
     - debug:
@@ -12,6 +11,11 @@
     - import_role:
         name: caddy
 
+- name: Verify
+  hosts: all
+  become: yes
+
+  tasks:
     - name: Test that Caddy is running
       uri:
         url: http://127.0.0.1
