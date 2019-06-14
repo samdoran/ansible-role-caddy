@@ -2,7 +2,7 @@
   file:
     path: "{{ item }}"
     state: absent
-  when: caddy_force_update
+  when: caddy_force_update | bool
   loop:
     - /usr/local/bin/caddy
     - /var/tmp/caddy/caddy
@@ -29,7 +29,7 @@
         url: https://caddyserver.com/download/{{ _platform }}/{{ _architecture }}?plugins={{ _plugins }}&license={{ caddy_license_type }}&telemetry=off
         dest: /var/tmp
         timeout: 480
-      when: caddy_download_custom_build
+      when: caddy_download_custom_build | bool
   rescue:
     - name: Download baked Caddy archive
       get_url:
