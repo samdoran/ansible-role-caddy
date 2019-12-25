@@ -150,7 +150,7 @@
     state: directory
     owner: "{{ caddy_user }}"
     group: "{{ caddy_group }}"
-    mode: '0750'
+    mode: '0755'
   tags:
     - caddy
 
