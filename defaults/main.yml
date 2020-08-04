@@ -4,7 +4,7 @@ caddy_service_name: caddy
 caddy_default_port: 80
 caddy_log_path: /var/log/caddy
 caddy_config_path: /etc/caddy
-caddy_config_file: caddy.conf
+caddy_config_file: Caddyfile
 caddy_root: /usr/share/caddy
 caddy_force_update: no
 caddy_download_custom_build: no
