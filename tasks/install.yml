@@ -33,13 +33,13 @@
   rescue:
     - name: Download baked Caddy archive
       get_url:
-        url: https://github.com/mholt/caddy/releases/download/v{{ caddy_version }}/caddy_v{{ caddy_version }}_{{ _platform }}_{{ _architecture }}.tar.gz
+        url: https://github.com/mholt/caddy/releases/download/v{{ caddy_version }}/caddy_{{ caddy_version }}_{{ _platform }}_{{ _architecture }}.tar.gz
         dest: /var/tmp
         timeout: 480
   always:
     - name: Download baked Caddy archive
       get_url:
-        url: https://github.com/mholt/caddy/releases/download/v{{ caddy_version }}/caddy_v{{ caddy_version }}_{{ _platform }}_{{ _architecture }}.tar.gz
+        url: https://github.com/mholt/caddy/releases/download/v{{ caddy_version }}/caddy_{{ caddy_version }}_{{ _platform }}_{{ _architecture }}.tar.gz
         dest: /var/tmp
         timeout: 480
       when: not caddy_download_custom_build
