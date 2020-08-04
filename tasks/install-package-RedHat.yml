@@ -1,0 +1,28 @@
+---
+- name: Install Caddy on Fedora or RHEL/CentOS 8
+  group:
+    - name: install the latest version of dnf-command(copr)
+      dnf:
+        name: 'dnf-command(copr)'
+        state: present
+    - name: Enable COPR for @caddy/caddy
+      command: "dnf copr enable @caddy/caddy"
+    - name: install the latest version of Caddy
+      dnf:
+        name: "caddy-{{ caddy_version }}"
+        state: present
+  when: ansible_distribution == 'Fedora' or ((ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'CentOS') and ansible_distribution_version == '8')
+
+- name: Install Caddy on RHEL/CentOS 7
+  group:
+    - name: install the latest version of yum-plugin-copr
+      yum:
+        name: 'yum-plugin-copr'
+        state: present
+    - name: Enable COPR for @caddy/caddy
+      command: "yum copr enable @caddy/caddy"
+    - name: install the latest version of Caddy
+      yum:
+        name: "caddy-{{ caddy_version }}"
+        state: present
+  when: (ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'CentOS') and ansible_distribution_version == '7'

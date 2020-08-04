@@ -1,0 +1,10 @@
+---
+- name: add Caddy repository
+  apt_repository:
+    repo: deb [trusted=yes] https://apt.fury.io/caddy/ /
+    state: present
+- name: install caddy
+  apt:
+    name: caddy={{ caddy_version }}
+    state: present
+    update_cache: yes
