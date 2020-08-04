@@ -1,5 +1,5 @@
 ---
 - name: "Install Caddy for '{{ ansible_os_family }}'"
-  import_tasks: install-package-{{ ansible_os_family }}.yml
+  import_tasks: "install-package-{{ ansible_os_family }}.yml"
   tags:
     - caddy
