@@ -1,11 +1,11 @@
 - name: Install Caddy via package
-  import_tasks: install-package.yml
+  include_tasks: install-package.yml
   when: caddy_install_source != 'package'
   tags:
     - caddy
 
 - name: Install Caddy via binary
-  import_tasks: install-binary.yml
+  include_tasks: install-binary.yml
   when: caddy_install_source != 'package'
   tags:
     - caddy
