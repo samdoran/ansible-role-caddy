@@ -2,7 +2,7 @@
   hosts: all
   become: yes
   vars:
-    caddy_download_custom_build: yes
+    caddy_install_source: custom
 
   tasks:
     - debug:

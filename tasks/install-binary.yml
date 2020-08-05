@@ -29,7 +29,7 @@
         url: https://caddyserver.com/api/download?os={{ _platform }}&arch={{ _architecture }}{{ _plugins }}
         dest: /var/tmp
         timeout: 480
-      when: caddy_download_custom_build | bool
+      when: caddy_install_source == 'custom'
   rescue:
     - name: Download baked Caddy archive
       get_url:
@@ -42,7 +42,7 @@
         url: https://github.com/mholt/caddy/releases/download/v{{ caddy_version }}/caddy_{{ caddy_version }}_{{ _platform }}_{{ _architecture }}.tar.gz
         dest: /var/tmp
         timeout: 480
-      when: not caddy_download_custom_build
+      when: caddy_install_source != 'custom'
   when: not caddy_bin.stat.exists
   tags:
     - caddy
