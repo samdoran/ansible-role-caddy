@@ -91,21 +91,6 @@
   tags:
     - caddy
 
-- name: Create Caddy directories
-  file:
-    path: "{{ item.path | default(item) }}"
-    owner: "{{ caddy_user }}"
-    group: "{{ caddy_group }}"
-    mode: "{{ item.mode | default(omit) }}"
-    state: directory
-  loop:
-    - "{{ caddy_config_path }}/conf.d"
-    - "{{ caddy_ssl_path }}"
-    - "{{ caddy_log_path }}"
-    - "{{ caddy_root }}"
-  tags:
-    - caddy
-
 - name: Copy service file
   template:
     src: "{{ caddy_service_files[ansible_facts.service_mgr]['src'] }}"
