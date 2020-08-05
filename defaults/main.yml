@@ -10,15 +10,9 @@ caddy_force_update: no
 caddy_install_source: binary
 caddy_version: '2.0.0'
 caddy_plugins:
-  - http.cache
-  - http.cgi
-  - http.forwardproxy
-  - http.geoip
-  - http.realip
-  - tls.dns.cloudflare
-  - tls.dns.digitalocean
-  - tls.dns.namecheap
-  - tls.dns.route53
+  - github.com/aksdb/caddy-cgi/v2 # http.cgi
+  - github.com/caddy-dns/cloudflare # tls.dns.cloudflare
+  - github.com/caddy-dns/route53 # tls.dns.route53
 
 # SystemD unit file settings
 caddy_systemd_protect_home: 'true'
