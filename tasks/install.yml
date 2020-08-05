@@ -1,6 +1,6 @@
 - name: Install Caddy via package
   include_tasks: install-package.yml
-  when: caddy_install_source != 'package'
+  when: caddy_install_source == 'package'
   tags:
     - caddy
 
