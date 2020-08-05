@@ -26,7 +26,7 @@
 - block:
     - name: Download custom Caddy archive
       get_url:
-        url: https://caddyserver.com/download/{{ _platform }}/{{ _architecture }}?plugins={{ _plugins }}&license={{ caddy_license_type }}&telemetry=off
+        url: https://caddyserver.com/api/download?os={{ _platform }}&arch={{ _architecture }}{{ _plugins }}
         dest: /var/tmp
         timeout: 480
       when: caddy_download_custom_build | bool

@@ -20,4 +20,4 @@ caddy_service_files:
 
 _platform: "{{ ansible_facts['system'] | lower }}"
 _architecture: "{{ caddy_url_values['architecture'][ansible_facts['architecture']] }}"
-_plugins: "{% for option in caddy_plugins %}{{ option }}{% if not loop.last %},{% endif %}{% endfor %}"
+_plugins: "{% for option in caddy_plugins %}&p={{ option }}{% endfor %}"
