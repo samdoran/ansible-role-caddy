@@ -126,15 +126,6 @@
   tags:
     - caddy
 
-- name: Copy default index.html
-  copy:
-    src: index.html
-    dest: "{{ caddy_root }}"
-    owner: "{{ caddy_user }}"
-    group: "{{ caddy_group }}"
-  tags:
-    - caddy
-
 - name: DEBIAN | Set capabilities
   capabilities:
     path: /usr/local/bin/caddy
@@ -153,24 +144,3 @@
     mode: '0755'
   tags:
     - caddy
-
-- name: Copy main Caddy config
-  template:
-    src: caddy.conf.j2
-    dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"
-    owner: root
-    group: root
-    mode: '0644'
-  tags:
-    - caddy
-    - caddy_config
-
-- name: Start and enable Caddy
-  service:
-    name: "{{ caddy_service_name }}"
-    state: started
-    enabled: yes
-  register: service_start
-  tags:
-    - caddy
-    - caddy_service

@@ -9,3 +9,35 @@
   when: caddy_install_source != 'package'
   tags:
     - caddy
+
+- name: Copy main Caddy config
+  template:
+    src: Caddyfile.j2
+    dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"
+    owner: "{{ caddy_user }}"
+    group: "{{ caddy_group }}"
+    mode: '0644'
+    force: yes
+  tags:
+    - caddy
+    - caddy_config
+
+- name: Copy default index.html
+  copy:
+    src: index.html
+    dest: "{{ caddy_root }}"
+    owner: "{{ caddy_user }}"
+    group: "{{ caddy_group }}"
+  tags:
+    - caddy
+
+- name: Start and enable Caddy
+  service:
+    name: "{{ caddy_service_name }}"
+    state: started
+    enabled: yes
+  register: service_start
+  tags:
+    - caddy
+    - caddy_service
+# /etc/caddy/Caddyfile
