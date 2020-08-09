@@ -55,6 +55,9 @@
   tags:
     - caddy
 
+- debug:
+    msg: "{{ caddy_archive }}"
+
 - name: Extract Caddy archive
   unarchive:
     dest: /var/tmp/caddy
