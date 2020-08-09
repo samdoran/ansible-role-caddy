@@ -48,8 +48,12 @@
   tags:
     - caddy
 
-- name: Move custom binary
-  command: "mkdir -p /var/tmp/caddy && mv {{ download_custom.dest }} /var/tmp/caddy/caddy"
+- block:
+    - file:
+        path: /var/tmp/caddy
+        state: directory
+    - name: Move custom binary
+      command: "mv {{ download_custom.dest }} /var/tmp/caddy/caddy"
   when: download_custom is defined and download_custom.failed == false
 
 - name: Find the downloaded Caddy archive file
