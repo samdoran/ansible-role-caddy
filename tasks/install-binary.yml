@@ -30,7 +30,7 @@
         dest: /var/tmp
         timeout: 480
       when: caddy_install_source == 'custom'
-      register: download_debug
+      register: download_custom
   rescue:
     - name: Download baked Caddy archive
       get_url:
@@ -48,16 +48,9 @@
   tags:
     - caddy
 
-- debug:
-    msg: "{{ download_debug }}"
-
-- find:
-    paths: /var/tmp
-    age: 2d
-    recurse: yes
-  register: find_debug
-- debug:
-    msg: "{{ find_debug }}"
+- name: Move custom binary
+  command: "mkdir -p /var/tmp/caddy && mv {{ download_custom.dest }} /var/tmp/caddy/caddy"
+  when: download_custom is defined and download_custom.failed == false
 
 - name: Find the downloaded Caddy archive file
   find:
