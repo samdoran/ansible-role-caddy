@@ -1,6 +1,7 @@
 :{{ caddy_default_port }} {
     encode gzip
     root * {{ caddy_root }}
+    file_server
 }
 
 import conf.d/*.conf
