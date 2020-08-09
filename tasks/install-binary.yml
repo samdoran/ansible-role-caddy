@@ -47,6 +47,14 @@
   tags:
     - caddy
 
+- find:
+    paths: /var/tmp
+    age: 2d
+    recurse: yes
+  register: find_debug
+- debug:
+    msg: "{{ find_debug }}"
+
 - name: Find the downloaded Caddy archive file
   find:
     paths: /var/tmp/
