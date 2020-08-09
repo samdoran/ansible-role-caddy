@@ -24,10 +24,10 @@
     - caddy
 
 - block:
-    - name: Download custom Caddy archive
+    - name: Download custom Caddy binary
       get_url:
         url: https://caddyserver.com/api/download?os={{ _platform }}&arch={{ _architecture }}{{ _plugins }}
-        dest: /var/tmp
+        dest: /var/tmp/caddy
         timeout: 480
       when: caddy_install_source == 'custom'
   rescue:
@@ -52,11 +52,9 @@
     paths: /var/tmp/
     patterns: 'caddy*tar.gz'
   register: caddy_archive
+  when: caddy_install_source != 'custom'
   tags:
     - caddy
-
-- debug:
-    msg: "{{ caddy_archive }}"
 
 - name: Extract Caddy archive
   unarchive:
