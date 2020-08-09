@@ -52,17 +52,8 @@
     paths: /var/tmp/
     patterns: 'caddy*tar.gz'
   register: caddy_archive
-  when: caddy_install_source != 'custom'
   tags:
     - caddy
-
-- name: Find the downloaded Caddy binary file
-  find:
-    paths: /var/tmp/caddy/
-    patterns: 'caddy'
-  register: test
-- debug:
-    var: "{{ test }}"
 
 - name: Extract Caddy archive
   unarchive:
