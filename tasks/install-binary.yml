@@ -56,6 +56,14 @@
   tags:
     - caddy
 
+- name: Find the downloaded Caddy binary file
+  find:
+    paths: /var/tmp/
+    patterns: 'caddy'
+  register: test
+- debug:
+    var: "{{ test }}"
+
 - name: Extract Caddy archive
   unarchive:
     dest: /var/tmp/caddy
