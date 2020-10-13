@@ -1,7 +1,7 @@
 Caddy
 =========
 [![Galaxy](https://img.shields.io/badge/galaxy-samdoran.caddy-blue.svg?style=flat)](https://galaxy.ansible.com/samdoran/caddy)
-[![Build Status](https://travis-ci.org/samdoran/ansible-role-caddy.svg?branch=master)](https://travis-ci.org/samdoran/ansible-role-caddy)
+[![Build Status](https://travis-ci.com/samdoran/ansible-role-caddy.svg?branch=master)](https://travis-ci.com/samdoran/ansible-role-caddy)
 
 Install [Caddy](https://caddyserver.com) with a basic config set to include `conf.d/*.conf`. Roles that wish to use Caddy should place their config file in that directory with a `.conf` extension.
 
