@@ -12,20 +12,3 @@
 
     - import_role:
         name: caddy
-
-- name: Verify
-  hosts: all
-  become: yes
-
-  tasks:
-    - name: Test that Caddy is running
-      uri:
-        url: http://127.0.0.1
-        status_code: 200
-        return_content: yes
-      register: result
-      until:
-        - result.status == 200
-        - "'Caddy web server' in result.content"
-      retries: 10
-      delay: 5
