@@ -11,7 +11,42 @@
       paths:
         - vars
   tags:
-    - always
     - caddy
 
-- import_tasks: install.yml
+- include_tasks: install-{{ ansible_facts.os_family }}.yml
+  tags:
+    - caddy
+
+- name: Copy main Caddy config
+  template:
+    src: "{{ caddy_config_file }}.j2"
+    dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart caddy
+  tags:
+    - caddy
+    - caddy_config
+
+- name: Create conf.d directory
+  file:
+    path: "{{ caddy_config_path }}/conf.d"
+    state: directory
+    owner: root
+    group: root
+    mode: '0644'
+  tags:
+    - caddy
+
+- name: Start and enable Caddy
+  service:
+    name: "{{ caddy_service_name }}"
+    state: started
+    enabled: yes
+  register: service_start
+  retries: 5
+  until: service_start is success
+  tags:
+    - caddy
+    - caddy_service

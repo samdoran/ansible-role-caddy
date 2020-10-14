@@ -1,13 +1,14 @@
 dependency:
   name: galaxy
+  enabled: no
 driver:
   name: docker
 lint: |
   ansible-lint -x 204,403,502
   yamllint -c molecule/yamllint.yml .
 platforms:
-  - name: caddy-test-default
-    image: "quay.io/samdoran/${MOLECULE_DISTRIBUTION:-centos7}-ansible:latest"
+  - name: caddy-test-default-${MOLECULE_DISTRIBUTION:-centos8}
+    image: "quay.io/samdoran/${MOLECULE_DISTRIBUTION:-centos8}-ansible:latest"
     command: ${MOLECULE_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro

@@ -1,0 +1,6 @@
+:{{ caddy_default_port }}
+root * {{ caddy_root }}
+import conf.d/*.conf
+file_server
+{# Refer to the Caddy docs for more information:
+https://caddyserver.com/docs/caddyfile #}
