@@ -45,6 +45,8 @@
     state: started
     enabled: yes
   register: service_start
+  retries: 5
+  until: service_start is success
   tags:
     - caddy
     - caddy_service

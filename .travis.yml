@@ -14,7 +14,8 @@ env:
       ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python
     - MOLECULE_DISTRIBUTION: debian9
     - MOLECULE_DISTRIBUTION: debian10
-    # - MOLECULE_DISTRIBUTION: fedora32
+    - MOLECULE_DISTRIBUTION: fedora31
+    - MOLECULE_DISTRIBUTION: fedora32
 
 install:
   - pip install molecule[lint]==3.0.6 docker

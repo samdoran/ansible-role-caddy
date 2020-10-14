@@ -12,6 +12,6 @@
       register: result
       until:
         - result.status == 200
-        - "'Caddy works!' in result.content"
+        - result.content is regex('Caddy (works!|web server)')
       retries: 10
       delay: 5
