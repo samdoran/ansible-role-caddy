@@ -12,3 +12,11 @@
     state: latest
   tags:
     - caddy
+
+- name: DEBIAN | Set capabilities
+  community.general.capabilities:
+    capability: cap_net_bind_service+ep
+    path: /usr/bin/caddy
+  tags:
+    - caddy
+  when: ansible_facts.distribution_major_version is version('8', '<=')

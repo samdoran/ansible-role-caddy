@@ -25,7 +25,7 @@ Role Variables
 Dependencies
 ------------
 
-None
+- `community.general` collection
 
 Example Playbook
 ----------------
