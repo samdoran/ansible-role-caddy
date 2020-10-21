@@ -21,10 +21,11 @@
   template:
     src: "{{ caddy_config_file }}.j2"
     dest: "{{ caddy_config_path }}/{{ caddy_config_file }}"
+    lstrip_blocks: yes
     owner: root
     group: root
     mode: '0644'
-  notify: restart caddy
+  notify: reload caddy
   tags:
     - caddy
     - caddy_config
