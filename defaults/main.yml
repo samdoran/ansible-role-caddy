@@ -6,3 +6,7 @@ caddy_config_path: /etc/caddy
 caddy_config_file: Caddyfile
 caddy_root: /usr/share/caddy
 caddy_global_config_options: []
+caddy_plugins: []
+  # - github.com/aksdb/caddy-cgi/v2
+  # - github.com/caddy-dns/cloudflare
+  # - github.com/caddy-dns/route53

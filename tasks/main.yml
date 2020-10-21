@@ -17,6 +17,23 @@
   tags:
     - caddy
 
+- name: Download custom Caddy binary
+  get_url:
+    url: https://caddyserver.com/api/download?os={{ _platform }}&arch={{ _architecture }}{{ _plugins }}
+    dest: /usr/bin/caddy
+    backup: yes
+    timeout: 600
+    owner: root
+    group: root
+    mode: '0755'
+    serole: object_r
+    seuser: system_u
+    setype: httpd_exec_t
+  when: caddy_plugins | length > 0
+  notify: reload caddy
+  tags:
+    - caddy
+
 - name: Copy main Caddy config
   template:
     src: "{{ caddy_config_file }}.j2"
