@@ -1,3 +1,5 @@
+caddy_user: caddy
+caddy_group: caddy
 caddy_service_name: caddy
 caddy_default_port: 80
 caddy_config_path: /etc/caddy

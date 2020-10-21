@@ -1,0 +1,7 @@
+_caddy_service_files:
+  systemd: /lib/systemd/system/caddy.service
+  upstart: /etc/init/caddy.conf
+  init: /etc/init.d/caddy
+
+_caddy_ssl_path:
+  Debian: /etc/ssl/caddy
