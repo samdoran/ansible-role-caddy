@@ -1,3 +1,10 @@
+{% if caddy_global_config_options %}
+{
+    {% for opt in caddy_global_config_options %}
+    {{ opt }}
+    {% endfor %}
+}
+{% endif %}
 :{{ caddy_default_port }} {
     root * {{ caddy_root }}
     file_server

@@ -3,3 +3,4 @@ caddy_default_port: 80
 caddy_config_path: /etc/caddy
 caddy_config_file: Caddyfile
 caddy_root: /usr/share/caddy
+caddy_global_config_options: []

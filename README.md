@@ -20,6 +20,7 @@ Role Variables
 | `caddy_config_path` | `/etc/caddy` | Path to Caddy config. |
 | `caddy_config_file` | `caddy.conf` | Name of the Caddy config file. |
 | `caddy_root` | `/usr/share/caddy` | Path to the default root served by Caddy. |
+| `caddy_global_config_options` | `[]` | List of global Caddy config options. Syntax must be correct. |
 
 
 Dependencies
