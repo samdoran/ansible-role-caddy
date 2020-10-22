@@ -38,11 +38,13 @@ Dependencies
 Example Playbook
 ----------------
 
-    - hosts: all
+    - name: Install Caddy
+      hosts: all
       roles:
          - samdoran.caddy
 
-    - hosts: all
+    - name: Remove Caddy v1 and install Caddy v2
+      hosts: all
       tasks:
         - name: Cleanup Caddy v1
           import_role:

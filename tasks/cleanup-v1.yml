@@ -1,3 +1,9 @@
+- name: Stop Caddy
+  service:
+    name: stopped
+  tags:
+    - caddy
+
 - name: Remove Caddy v1 files
   file:
     state: absent
