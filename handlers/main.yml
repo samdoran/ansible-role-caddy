@@ -1,11 +1,3 @@
-- name: set capabilities
-  community.general.capabilities:
-    capability: cap_net_bind_service+ep
-    path: /usr/bin/caddy
-  when:
-    - ansible_facts.distribution == 'Debian'
-    - ansible_facts.distribution_major_version is version('8', '<=')
-
 - name: systemd daemon reload
   systemd:
     daemon_reload: yes

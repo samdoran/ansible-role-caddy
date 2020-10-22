@@ -10,6 +10,5 @@
   apt:
     name: caddy
     state: latest
-  notify: set capabilities
   tags:
     - caddy
