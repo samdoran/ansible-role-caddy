@@ -30,7 +30,9 @@
     seuser: system_u
     setype: httpd_exec_t
   when: caddy_plugins | length > 0
-  notify: reload caddy
+  notify:
+    - set capabilities
+    - reload caddy
   tags:
     - caddy
 
