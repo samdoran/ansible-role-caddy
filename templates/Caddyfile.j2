@@ -5,11 +5,24 @@
     {% endfor %}
 }
 {% endif %}
-:{{ caddy_default_port }} {
-    root * {{ caddy_root }}
-    file_server
+{% for block, directives in caddy_directives.items() %}
+{{ block }} {
+    {% for directive in directives %}
+    {% if directive is mapping %}
+    {% for block, sub_directives in directive.items() %}
+    {{ block }} {
+        {% for sub_directive in sub_directives %}
+        {{ sub_directive }}
+        {% endfor %}
+    }
+    {% endfor %}
+    {% else %}
+    {{ directive }}
+    {% endif %}
+    {% endfor %}
 }
 
+{% endfor %}
 import conf.d/*
 {# Refer to the Caddy docs for more information:
 https://caddyserver.com/docs/caddyfile #}

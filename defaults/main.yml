@@ -1,7 +1,6 @@
 caddy_user: caddy
 caddy_group: caddy
 caddy_service_name: caddy
-caddy_default_port: 80
 caddy_config_path: /etc/caddy
 caddy_config_file: Caddyfile
 caddy_root: /usr/share/caddy
@@ -10,3 +9,13 @@ caddy_plugins: []
   # - github.com/aksdb/caddy-cgi/v2
   # - github.com/caddy-dns/cloudflare
   # - github.com/caddy-dns/route53
+
+caddy_directives:
+    :80:
+      - root * {{ caddy_root }}
+      - file_server
+    # Additional directives and blocks go here
+    #   - log:
+    #       - output file /var/log/caddy/access.log
+    # acme.com:
+    #   - reverse_proxy 127.0.0.1:8443

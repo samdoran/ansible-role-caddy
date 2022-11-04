@@ -21,11 +21,11 @@ Role Variables
 | `caddy_user` | `caddy` | Caddy user |
 | `caddy_group` | `caddy` | Caddy group |
 | `caddy_service_name` | `caddy` | Name of the service for starting/stopping/enabling. |
-| `caddy_default_port` | `80` | Default port Caddy will bind to. |
 | `caddy_config_path` | `/etc/caddy` | Path to Caddy config. |
 | `caddy_config_file` | `caddy.conf` | Name of the Caddy config file. |
 | `caddy_root` | `/usr/share/caddy` | Path to the default root served by Caddy. |
 | `caddy_global_config_options` | `[]` | List of global Caddy config options. Syntax must be correct. |
+| `caddy_directives` | `[]` | List of directives to put in the `Caddyfile`. See `defaults/main.yml`. |
 | `caddy_plugins` | `[]` | List of [plugins](https://caddyserver.com/download) to be added to Caddy. This will download a custom Caddy binary and replace the one installed from the repository. |
 
 
