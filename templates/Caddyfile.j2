@@ -1,25 +1,25 @@
 {% if caddy_global_config_options %}
 {
-	{% for opt in caddy_global_config_options %}
-	{{ opt }}
-	{% endfor %}
+    {% for opt in caddy_global_config_options %}
+    {{ opt }}
+    {% endfor %}
 }
 {% endif %}
 {% for block, directives in caddy_directives.items() %}
 {{ block }} {
-	{% for directive in directives %}
-	{% if directive is mapping %}
-	{% for block, sub_directives in directive.items() %}
-	{{ block }} {
-		{% for sub_directive in sub_directives %}
-		{{ sub_directive }}
-		{% endfor %}
-	}
-	{% endfor %}
-	{% else %}
-	{{ directive }}
-	{% endif %}
-	{% endfor %}
+    {% for directive in directives %}
+    {% if directive is mapping %}
+    {% for block, sub_directives in directive.items() %}
+    {{ block }} {
+        {% for sub_directive in sub_directives %}
+        {{ sub_directive }}
+        {% endfor %}
+    }
+    {% endfor %}
+    {% else %}
+    {{ directive }}
+    {% endif %}
+    {% endfor %}
 }
 
 {% endfor %}
